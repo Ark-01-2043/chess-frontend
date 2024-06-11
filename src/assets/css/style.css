@@ -26,7 +26,22 @@ body {
 #btn-resign {
   background-image: url('../img/icons/resign.svg');
 }
+#btn-left-bar {
+  background-image: url("../img/icons/chevron-bar-left.svg");
+}
+#btn-right-bar {
+  background-image: url("../img/icons/chevron-bar-right.svg");
+}
+#btn-right {
+  background-image: url("../img/icons/chevron-right.svg");
+}
 
+#btn-left {
+  background-image: url("../img/icons/chevron-left.svg");
+}
+#btn-flip {
+  background-image: url("../img/icons/arrow-down-up.svg");
+}
 .buttons > button {
   background-color: #ffffff;
 }
@@ -38,12 +53,11 @@ body {
   -webkit-justify-content: space-around;
   width: 100%;
   max-width: 810px;
-  margin: 0 auto;
 }
 
 .chess-area .board-table {
   width: 100%;
-  max-width: 480px;
+  min-width: 600px;
 }
 .chess-area .board-table .board {
   width: 98%;

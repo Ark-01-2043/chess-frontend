@@ -5,8 +5,7 @@ import "../../assets/css/login.css"
 import LoadingScreen from '../../components/LoadingScreen';
 import ReactLoading from "react-loading"
 import { debounce } from 'lodash';
-
-export default function Login() {
+function AdminLogin() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false)
@@ -14,11 +13,11 @@ export default function Login() {
     useEffect(() => {
         
         // console.log(localStorage.getItem("token"));
-        if (localStorage.getItem("token")) {
+        if (localStorage.getItem("adminToken")) {
             // console.log("Not login");
-        	navigate("/");
+        	navigate("/admin");
         }
-		document.title = "Đăng nhập"
+		document.title = "Đăng nhập-Admin"
     }, []);
 	
     const loginClick = async (e) => {
@@ -53,9 +52,8 @@ export default function Login() {
 				localStorage.setItem("adminToken", dataJson.accessToken);
 				navigate("/admin")
 			}else{
-				localStorage.setItem("token", dataJson.accessToken);
-				localStorage.setItem("id", dataJson.id);
-				navigate("/")
+                alert("Hãy dùng tài khoản admin")
+				setLoading(false)
 			}
 		} catch (error) {
 			// console.log(error);
@@ -86,9 +84,11 @@ export default function Login() {
 						width={30}
 					/>
 				</div>}
-				<p className="message" style={{fontSize: "18", paddingTop:"10px"}}> Chưa có tài khoản? <Link to="/register">Tạo tài khoản mới</Link></p>
+				
 			</form>
 		</div>
 	</div>
   )
 }
+
+export default AdminLogin

@@ -1,16 +1,9 @@
 import { debounce } from 'lodash';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactLoading from "react-loading"
-export default function RegisterForm({form, button}) {
-    // const [username, setusername] = useState("");
-    // const [password, setpassword] = useState("");
-    // const [email, setEmail] = useState("");
-    // const [confirmedPassword, setConfirmedPassword] = useState("");
-    // const [hoTen, setHoTen] = useState("");
-    // const [soDienThoai, setSoDienThoai] = useState("");
-    // const [gioiTinh, setGioiTinh] = useState("true");
+function AddUser() {
     const usernameRef = useRef("");
     const passwordRef = useRef("");
     const confirmedPasswordRef = useRef("");
@@ -31,8 +24,6 @@ export default function RegisterForm({form, button}) {
             seterror("none");
         }
     }
-    
-    
     const register = async (e) => {
         setLoading(true)
         const param = {
@@ -64,17 +55,21 @@ export default function RegisterForm({form, button}) {
 			const dataJson = await data.json();
 			// console.log(dataJson);
 			
-			navigate("/login");
+			navigate("/admin/user");
 		} catch (error) {
 			// console.log(error);
 			alert(error.message);
 		}
     };
-    return (
+    useEffect(() => {
+        
+        document.title = "Thêm người dùng"
+    }, []);
+  return (
     <div className="form">
         <form>
             
-            <h2 className="form-signin-heading" style={{textAlign: "center"}}>{form}</h2>
+            <h2 className="form-signin-heading" style={{textAlign: "center"}}>Thêm người dùng</h2>
             <hr/>
             <br/>
             
@@ -121,7 +116,7 @@ export default function RegisterForm({form, button}) {
             </div>
             <br/>
             <input id="maVaiTro" type="hidden" value="2"/>
-            {!loading && <input id="submit" type="button" onClick={debounce(async () => await register(), 2000)} value={button}/>}
+            {!loading && <input id="submit" type="button" onClick={debounce(async () => await register(), 2000)} value={"Thêm"}/>}
             {loading && <div className='submit-btn'>
 					<ReactLoading
 						type='spinningBubbles'
@@ -134,3 +129,5 @@ export default function RegisterForm({form, button}) {
     </div>
   )
 }
+
+export default AddUser

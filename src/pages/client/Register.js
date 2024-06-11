@@ -14,7 +14,7 @@ export default function Register() {
       navigate("/");
     }
     document.title = "Đăng kí"
-});
+}, []);
   return (
     
     <div className="login-page">

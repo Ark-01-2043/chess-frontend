@@ -27,7 +27,7 @@ body {
   
 }
 
-.back-btn {
+.backbtn {
   position: absolute;
   top: 300px;
   left: 60px;
@@ -41,12 +41,12 @@ body {
   transition: 0.15s;
 }
 
-.back-btn:hover {
+.backbtn:hover {
   transform: translateY(-2px);
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
 }
 
-.back-btn:active {
+.backbtn:active {
   background-color: rgb(209, 0, 0);
 }
 
@@ -63,7 +63,7 @@ body {
   border-radius: 16px;
 }
 
-.nav-bar {
+.nav {
   height: 40px;
   display: flex;
   flex-direction: row;
@@ -74,7 +74,7 @@ body {
 
 
 
-.search-bar {
+.searchbar {
   height: 22px;
   flex: 1;
   margin: 0 5px;
@@ -84,7 +84,7 @@ body {
   box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.1);
 }
 
-.search-btn {
+.searchbtn {
   height: 22px;
   width: 22px;
   margin-right: 10px;
@@ -93,11 +93,11 @@ body {
   cursor: pointer;
 }
 
-.search-btn:hover {
+.searchbtn:hover {
   background-color: gainsboro;
 }
 
-.search-btn:active {
+.searchbtn:active {
   background-color: rgb(163, 163, 163);
 }
 
@@ -106,7 +106,7 @@ body {
   height: 18px;
 }
 
-.add-btn {
+.addbtn {
   height: 22px;
   width: 22px;
   margin-right: 5px;
@@ -116,15 +116,15 @@ body {
   cursor: pointer;
 }
 
-.add-btn:hover {
+.addbtn:hover {
   background: lightseagreen;
 }
 
-.add-btn:active {
+.addbtn:active {
   transform: translateY(3px);
 }
 
-.user-info {
+.userinfo {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -156,13 +156,13 @@ body {
 .sex img{
 	vertical-align: bottom;
 }
-.more-info {
+.moreinfo {
   display: grid;
   grid-template-columns: auto auto;
   max-width: 400px;
 }
 
-.edit-btn {
+.editbtn {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -176,21 +176,21 @@ body {
   transition: 0.1s;
 }
 
-.edit-btn:hover {
+.editbtn:hover {
   transform: translateY(-2px);
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
   transition: 0.1s;
 }
 
-.edit-btn:active {
+.editbtn:active {
   background-color: rgb(111, 221, 0);
 }
 
-.edit-icon {
+.editicon {
   height: 17px;
 }
 
-.delete-btn {
+.deletebtn {
   position: absolute;
   top: 45px;
   right: 10px;
@@ -204,12 +204,12 @@ body {
   transition: 0.1s;
 }
 
-.delete-btn:hover {
+.deletebtn:hover {
   transform: translateY(-2px);
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
   transition: 0.1s;
 }
 
-.delete-btn:active {
+.deletebtn:active {
   background-color: rgb(202, 0, 0);
 }

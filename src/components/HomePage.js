@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import "../assets/css/styles.css"
 import { Link, useNavigate } from 'react-router-dom'
 
+
 export default function () {
     const navigate = useNavigate();
     const modalRef = useRef();
@@ -12,7 +13,7 @@ export default function () {
             if (levelId == 1) {
                 return "Dễ";
             } else if (levelId == 2) {
-                return "Vừa";
+                return "Trung bình";
             } else {
                 return "Khó";
             }
@@ -25,11 +26,11 @@ export default function () {
         
         console.log(localStorage.getItem("token"));
         if (!localStorage.getItem("token")) {
-            console.log("Not login");
+            
             navigate("/login");
         }
         document.title = "Trang chủ"
-    });
+    }, []);
     
     const openModal = (e) => {
         const modal = document.getElementById("level");
@@ -79,6 +80,7 @@ export default function () {
             <button id="button3" onClick={btn3Onclick}>Khó</button>
         
         </div>
+        <Link to="/ranking"><button>Bảng xếp hạng</button></Link>
         <Link to="/profile"><button>Chỉnh sửa thông tin</button></Link>
         <button id="logout" onClick={logOut}>Đăng xuất</button>
         

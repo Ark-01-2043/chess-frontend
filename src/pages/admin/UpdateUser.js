@@ -1,11 +1,10 @@
 import { debounce } from 'lodash';
 import React, { useEffect } from 'react'
 import { useState, useRef } from 'react';
-import "../assets/css/login.css"
 import { useLocation, useNavigate } from 'react-router-dom';
-import LoadingScreen from './LoadingScreen';
+import LoadingScreen from '../../components/LoadingScreen.js';
 import ReactLoading from "react-loading"
-export default function UpdateProfile({route}) {
+function UpdateUser() {
     const location = useLocation()
     const user = location.state.user;
 
@@ -13,13 +12,23 @@ export default function UpdateProfile({route}) {
     const [username, setusername] = useState(user.username);
     
     const [email, setEmail] = useState(user.email);
-    
+    const [password, setpassword] = useState("")
+    const [confirmedPassword, setConfirmedPassword] = useState("")
     const [hoTen, setHoTen] = useState(user.hoTen);
     const [soDienThoai, setSoDienThoai] = useState(user.soDienThoai);
     const [gioiTinh, setGioiTinh] = useState(user.gioiTinh);
     const [loading, setLoading] = useState(false)
     const [error, seterror] = useState("none");
     const navigate = useNavigate();
+    useEffect(() => {
+        if (confirmedPassword != password) {
+            seterror("block");
+        }
+        else{
+            seterror("none");
+        }
+    }, [password, confirmedPassword])
+    
     const update = async (e) => {
         try {
             setLoading(true)
@@ -27,18 +36,28 @@ export default function UpdateProfile({route}) {
                 id: user.id,
                 hoTen: hoTen,
                 username: username,
-                password: user.password,
-                confirmedPassword: user.password,
+                password: password,
+                confirmedPassword: confirmedPassword,
                 email: user.email,
                 soDienThoai: soDienThoai,
                 gioiTinh: gioiTinh
             }
-            const token = localStorage.getItem("token")
-            const data = await fetch("https://chess-backend-3qay.onrender.com/api/profile",{
+            const adminToken = localStorage.getItem("adminToken")
+            if (password != "" && (password.length < 8 || password.length > 32)) {
+                alert("Mật khẩu mới phải có độ dài từ 8-32 ký tự")
+                setLoading(false)
+                return
+            }
+            if (password != confirmedPassword) {
+                alert("Mật khẩu nhập lại không đúng")
+                setLoading(false)
+                return
+            }
+            const data = await fetch("https://chess-backend-3qay.onrender.com/api/user",{
                 method: "PUT",
                 headers: {
                     'Accept': 'application/json',
-                    'Authorization': "Bearer " + token,
+                    'Authorization': "Bearer " + adminToken,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(params)
@@ -52,7 +71,7 @@ export default function UpdateProfile({route}) {
             const response = await data.json();
             const dataJson = response.data
             console.log(dataJson);
-            navigate("/profile")
+            navigate("/admin/user")
             
         } catch (error) {
             // console.log(error);
@@ -61,16 +80,12 @@ export default function UpdateProfile({route}) {
         }
     }; 
     useEffect(() => {
-        document.title = "Chỉnh sửa hồ sơ"
-        if (!localStorage.getItem("token")) {
-            
-            navigate("/login");
-        }
+        document.title = "Chỉnh sửa người dùng"
+        
     }, [])
-    
-    return (
-        <div>
-            <button onClick={() => navigate("/profile")}>Quay lại</button>
+  return (
+    <div>
+            <button onClick={() => navigate("/admin/user")}>Quay lại</button>
             
             <div className="form">
                 
@@ -86,6 +101,18 @@ export default function UpdateProfile({route}) {
                             placeholder="Tên đăng nhập" autoFocus={true} required="required" value={username} readOnly></input>
                         
                         
+                    </div>
+                    <div className="form-group">
+                        <input type="password" className="form-control"
+                            required="required" placeholder="Mật khẩu" onChange={(e) => setpassword(e.target.value)}></input>
+                        
+                    </div>
+
+                    <div className="form-group">
+                        <div className='alert error' style={{fontSize: "12px", display: error}}>Mật khẩu nhắc lại không đúng</div>
+                        <input type="password" name="confirmPassword"
+                            className="form-control" placeholder="Nhắc lại mật khẩu"
+                            required="required"  onChange={(e) => setConfirmedPassword(e.target.value)}></input>
                     </div>
                     <div className="form-group">
                         <input type="text" name="hoTen" className="form-control"
@@ -118,10 +145,12 @@ export default function UpdateProfile({route}) {
                         />
                     </div>}
                     <div style={{height: 20}}></div>
-                    <input id="submit" type="button" onClick={() => navigate("/profile/changePassword")} value="Đổi mật khẩu"/>
+                    
                                                     
                 </form>
             </div>
         </div>
   )
 }
+
+export default UpdateUser
